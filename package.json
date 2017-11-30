@@ -1,0 +1,27 @@
+{
+  "name": "pv8-game-creator",
+  "main": "./lib/main",
+  "version": "0.7.6",
+  "description": "Adds auto complete and other utilities for PV8's Game Creator.",
+  "keywords": [
+    "autocomplete",
+    "provider",
+    "pv8",
+    "game creator",
+    "pixelvision",
+    "pixelvision8"
+  ],
+  "repository": "https://github.com/pixelvision8/atom-pv8-game-creator-plugin",
+  "author": "Pixel Vision 8 <makegames@pixelvision8.com> (http://pixelvision8.com)",
+  "license": "Microsoft Public License (MS-PL) License",
+  "engines": {
+    "atom": ">=1.15.0 <2.0.0"
+  },
+  "providedServices": {
+    "autocomplete.provider": {
+      "versions": {
+        "2.0.0": "getProvider"
+      }
+    }
+  }
+}
