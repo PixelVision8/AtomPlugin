@@ -1,7 +1,7 @@
 {
   "name": "pv8-game-creator",
   "main": "./lib/main",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Adds auto complete and other utilities for PV8's Game Creator.",
   "keywords": [
     "autocomplete",
