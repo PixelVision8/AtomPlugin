@@ -27,13 +27,6 @@
     "rightLabel": "Game"
   },
   {
-    "displayText": "CalculateTextHeight(text, characterWidth)",
-    "snippet": "CalculateTextHeight(${1:text}, ${2:characterWidth})$3",
-    "description": "",
-    "type": "method",
-    "rightLabel": "Game"
-  },
-  {
     "displayText": "Clamp(val, min, max)",
     "snippet": "Clamp(${1:val}, ${2:min}, ${3:max})$4",
     "description": " Limits a value between a minimum and maximum. ",
@@ -44,13 +37,6 @@
     "displayText": "Clear(x, y, width, height)",
     "snippet": "Clear(${1:x}, ${2:y}, ${3:width}, ${4:height})$5",
     "description": " Clearing the display removed all of the existing pixel data, replacing it with the default background color. The Clear() method allows you specify what region of the display to clear. By simply calling Clear(), with no arguments, it automatically clears the entire display. You can manually define an area of the screen to clear by supplying option x, y, width and height arguments. When clearing a specific area of the display, anything outside of the defined boundaries remains on the next draw phase. This is useful for drawing a HUD but clearing the display below for a scrolling map and sprites. Clear can only be used once during the draw phase. ",
-    "type": "method",
-    "rightLabel": "Game"
-  },
-  {
-    "displayText": "ClearUILayer()",
-    "snippet": "ClearUILayer()$1",
-    "description": "",
     "type": "method",
     "rightLabel": "Game"
   },
@@ -99,7 +85,7 @@
   {
     "displayText": "DrawPixel(x, y, colorRef, drawMode)",
     "snippet": "DrawPixel(${1:x}, ${2:y}, ${3:colorRef}, ${4:drawMode})$5",
-    "description": "",
+    "description": " This method allows you to draw a single pixel to the Tilemap Cache. It's an expensive operation which leverages DrawPixels(). This should only be used in special occasions when batching pixel data draw request aren't possible. ",
     "type": "method",
     "rightLabel": "Game"
   },
@@ -111,6 +97,13 @@
     "rightLabel": "Game"
   },
   {
+    "displayText": "DrawRect(x, y, width, height, color, drawMode)",
+    "snippet": "DrawRect(${1:x}, ${2:y}, ${3:width}, ${4:height}, ${5:color}, ${6:drawMode})$7",
+    "description": " This method allows you to draw a rectangle with a fill color. By default, this method is used to clear the screen but you can supply a color offset to change the color value and use it to fill a rectangle area with a specific color instead. ",
+    "type": "method",
+    "rightLabel": "Game"
+  },
+  {
     "displayText": "DrawSprite(id, x, y, flipH, flipV, drawMode, colorOffset)",
     "snippet": "DrawSprite(${1:id}, ${2:x}, ${3:y}, ${4:flipH}, ${5:flipV}, ${6:drawMode}, ${7:colorOffset})$8",
     "description": " Sprites represent individual collections of pixel data at a fixed size. By default, Pixel Vision 8 sprites are 8 x 8 pixels and have a set limit of visible colors. You can use the DrawSprite() method to render any sprite stored in the Sprite Chip. The display also has a limitation on how many sprites can be on the screen at one time. Each time you call DrawSprite(), the sprite counts against the total amount the display can render. If you attempt to draw more sprites than the display can handle, the call is ignored. One thing to keep in mind when drawing sprites is that their x and y position wraps if they reach the right or bottom border of the screen. You need to change the overscan border to hide sprites offscreen. ",
@@ -118,15 +111,22 @@
     "rightLabel": "Game"
   },
   {
-    "displayText": "DrawSprites(ids, x, y, width, flipH, flipV, drawMode, colorOffset, onScreen, useScrollPos)",
-    "snippet": "DrawSprites(${1:ids}, ${2:x}, ${3:y}, ${4:width}, ${5:flipH}, ${6:flipV}, ${7:drawMode}, ${8:colorOffset}, ${9:onScreen}, ${10:useScrollPos})$11",
+    "displayText": "DrawSpriteBlock(id, x, y, width, height, flipH, flipV, drawMode, colorOffset, onScreen, useScrollPos)",
+    "snippet": "DrawSpriteBlock(${1:id}, ${2:x}, ${3:y}, ${4:width}, ${5:height}, ${6:flipH}, ${7:flipV}, ${8:drawMode}, ${9:colorOffset}, ${10:onScreen}, ${11:useScrollPos})$12",
+    "description": " DrawSpriteBlock() is similar to DrawSprites except you define the first sprite (upper left corner) and the width x height (in sprites) to sample from sprite ram. This will create a larger sprite by using neighbor sprites. ",
+    "type": "method",
+    "rightLabel": "Game"
+  },
+  {
+    "displayText": "DrawSprites(ids, x, y, width, flipH, flipV, drawMode, colorOffset, onScreen, useScrollPos, bounds)",
+    "snippet": "DrawSprites(${1:ids}, ${2:x}, ${3:y}, ${4:width}, ${5:flipH}, ${6:flipV}, ${7:drawMode}, ${8:colorOffset}, ${9:onScreen}, ${10:useScrollPos}, ${11:bounds})$12",
     "description": " The DrawSprites method makes it easier to combine and draw groups of sprites to the display in a grid. This is useful when trying to render 4 sprites together as a larger 16x16 pixel graphic. While there is no limit on the size of the sprite group which can be rendered, it is important to note that each sprite in the array still counts as an individual sprite. Sprites passed into the DrawSprites() method are visible if the display can render it. Under the hood, this method uses DrawSprite but solely manages positioning the sprites out in a grid. Another unique feature of his helper method is that it automatically hides sprites that go offscreen. When used with overscan border, it greatly simplifies drawing larger sprites to the display. ",
     "type": "method",
     "rightLabel": "Game"
   },
   {
-    "displayText": "DrawText(text, x, y, drawMode, font, colorOffset, spacing, width)",
-    "snippet": "DrawText(${1:text}, ${2:x}, ${3:y}, ${4:drawMode}, ${5:font}, ${6:colorOffset}, ${7:spacing}, ${8:width})$9",
+    "displayText": "DrawText(text, x, y, drawMode, font, colorOffset, spacing)",
+    "snippet": "DrawText(${1:text}, ${2:x}, ${3:y}, ${4:drawMode}, ${5:font}, ${6:colorOffset}, ${7:spacing})$8",
     "description": " The DrawText() method allows you to render text to the display. By supplying a custom DrawMode, you can render characters as individual sprites (DrawMode.Sprite), tiles (DrawMode.Tile) or drawn directly into the tilemap cache (DrawMode.TilemapCache). When drawing text as sprites, you have more flexibility over position, but each character counts against the displays' maximum sprite count. When rendering text to the tilemap, more characters are shown and also increase performance when rendering large amounts of text. You can also define the color offset, letter spacing which only works for sprite and tilemap cache rendering, and a width in characters if you want the text to wrap. ",
     "type": "method",
     "rightLabel": "Game"
@@ -139,8 +139,8 @@
     "rightLabel": "Game"
   },
   {
-    "displayText": "DrawTilemap(x, y, columns, rows)",
-    "snippet": "DrawTilemap(${1:x}, ${2:y}, ${3:columns}, ${4:rows})$5",
+    "displayText": "DrawTilemap(x, y, columns, rows, offsetX, offsetY, drawMode)",
+    "snippet": "DrawTilemap(${1:x}, ${2:y}, ${3:columns}, ${4:rows}, ${5:offsetX}, ${6:offsetY}, ${7:drawMode})$8",
     "description": " By default, the tilemap renders to the display by simply calling DrawTilemap(). This automatically fills the entire display with the visible portion of the tilemap. To have more granular control over how to render the tilemap, you can supply an optional X and Y position to change where it draws on the screen. You can also modify the width (columns) and height (rows) that are displayed too. This is useful if you want to show a HUD or some other kind of image on the screen that is not overridden by the tilemap. To scroll the tilemap, you need to call the ScrollPosition() and supply a new scroll X and Y value. ",
     "type": "method",
     "rightLabel": "Game"
@@ -160,13 +160,6 @@
     "rightLabel": "Game"
   },
   {
-    "displayText": "Init()",
-    "snippet": "Init()$1",
-    "description": " This is called when a game is initialized. It is only called once when the game is first loaded. ",
-    "type": "function",
-    "rightLabel": "Runner"
-  },
-  {
     "displayText": "InputString()",
     "snippet": "InputString()$1",
     "description": " The InputString() method returns the keyboard input entered this frame. This method is useful for capturing keyboard text input. ",
@@ -181,8 +174,8 @@
     "rightLabel": "Game"
   },
   {
-    "displayText": "MaxSpriteCount()",
-    "snippet": "MaxSpriteCount()$1",
+    "displayText": "MaxSpriteCount(total)",
+    "snippet": "MaxSpriteCount(${1:total})$2",
     "description": " This method returns the maximum number of sprites the Display Chip can render in a single frame. Use this to better understand the limitations of the hardware your game is running on. This is a read only property at runtime. ",
     "type": "method",
     "rightLabel": "Game"
@@ -216,8 +209,8 @@
     "rightLabel": "Game"
   },
   {
-    "displayText": "PlaySong(trackIDs, loop)",
-    "snippet": "PlaySong(${1:trackIDs}, ${2:loop})$3",
+    "displayText": "PlaySong(loopIDs, loop)",
+    "snippet": "PlaySong(${1:loopIDs}, ${2:loop})$3",
     "description": " This helper method allows you to automatically load a set of loops as a complete song and plays them back. You can also define if the tracks should loop when they are done playing. ",
     "type": "method",
     "rightLabel": "Game"
@@ -265,6 +258,13 @@
     "rightLabel": "Game"
   },
   {
+    "displayText": "Reset()",
+    "snippet": "Reset()$1",
+    "description": " This is called when a game is reset. ",
+    "type": "function",
+    "rightLabel": "Runner"
+  },
+  {
     "displayText": "RewindSong(position, loopID)",
     "snippet": "RewindSong(${1:position}, ${2:loopID})$3",
     "description": " Rewinds the sequencer to the beginning of the currently loaded song. You can define the position in the loop and the loop where playback should begin. Calling this method without any arguments will simply rewind the song to the beginning of the first loop. ",
@@ -275,6 +275,13 @@
     "displayText": "ScrollPosition(x, y)",
     "snippet": "ScrollPosition(${1:x}, ${2:y})$3",
     "description": " You can scroll the tilemap by calling the ScrollPosition() method and supplying a new scroll X and Y position. By default, calling ScrollPosition() with no arguments returns a vector with the current scroll X and Y values. If you supply an X and Y value, it updates the tilemap's scroll position the next time you call the DrawTilemap() method. ",
+    "type": "method",
+    "rightLabel": "Game"
+  },
+  {
+    "displayText": "Shutdown()",
+    "snippet": "Shutdown()$1",
+    "description": "",
     "type": "method",
     "rightLabel": "Game"
   },
@@ -359,6 +366,13 @@
     "displayText": "UpdateTiles(column, row, columns, ids, colorOffset, flag)",
     "snippet": "UpdateTiles(${1:column}, ${2:row}, ${3:columns}, ${4:ids}, ${5:colorOffset}, ${6:flag})$7",
     "description": " A helper method which allows you to update several tiles at once. Simply define the start column and row position, the width of the area to update in tiles and supply a new int array of sprite IDs. You can also modify the color offset and flag value of the tiles via the optional parameters. This helper method uses calls the Tile() method to update each tile, so any changes to a tile will be automatically redrawn to the tilemap's cache. ",
+    "type": "method",
+    "rightLabel": "Game"
+  },
+  {
+    "displayText": "VisibleBounds()",
+    "snippet": "VisibleBounds()$1",
+    "description": "",
     "type": "method",
     "rightLabel": "Game"
   },
