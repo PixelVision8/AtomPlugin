@@ -1,8 +1,8 @@
 {
-  "name": "pv8-game-creator",
+  "name": "pixel-vision-8-lua-api",
   "main": "./lib/main",
-  "version": "0.8.3",
-  "description": "Adds auto complete and other utilities for PV8's Game Creator.",
+  "version": "0.9.3",
+  "description": "Adds auto complete and other utilities for PV8 Lua games.",
   "keywords": [
     "autocomplete",
     "provider",
