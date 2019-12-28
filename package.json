@@ -1,5 +1,5 @@
 {
-  "name": "pixel-vision-8-lua-api",
+  "name": "pixel-vision-atom-plugin",
   "main": "./lib/main",
   "version": "0.9.3",
   "description": "Adds auto complete and other utilities for PV8 Lua games.",
