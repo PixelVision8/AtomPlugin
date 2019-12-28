@@ -1,7 +1,7 @@
 {
   "name": "pixel-vision-atom-plugin",
   "main": "./lib/main",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "description": "Adds auto complete and other utilities for PV8 Lua games.",
   "keywords": [
     "autocomplete",
