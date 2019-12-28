@@ -1,17 +1,17 @@
 {
-  "name": "pixel-vision-atom-plugin",
+  "name": "pixel-vision-8-lua-api",
   "main": "./lib/main",
-  "version": "0.9.4",
+  "version": "0.9.7",
   "description": "Adds auto complete and other utilities for PV8 Lua games.",
   "keywords": [
     "autocomplete",
     "provider",
     "pv8",
-    "game creator",
+    "Pixel Vision 8",
     "pixelvision",
     "pixelvision8"
   ],
-  "repository": "https://github.com/pixelvision8/atom-pv8-game-creator-plugin",
+  "repository": "https://github.com/pixelvision8/PixelVisionAtomPlugin",
   "author": "Pixel Vision 8 <makegames@pixelvision8.com> (http://pixelvision8.com)",
   "license": "Microsoft Public License (MS-PL) License",
   "engines": {

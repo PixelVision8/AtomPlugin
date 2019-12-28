@@ -1,324 +1,1137 @@
 [
 {
-    "displayText": "Draw()",
-    "snippet": "Draw()$1",
-    "description": " Draw() is called once per frame after the Update() has completed. This is where all visual updates to your game should take place such as clearing the display, drawing sprites, and pushing raw pixel data into the display. ",
+    "displayText": "AddScript(name, text)",
+    "snippet": "AddScript( ${1:name}, ${2:text} )$3",
+    "description": "The AddScript() API allows you to add a new Lua script at runtime from a string. Simply give the script a name and pass in a string with valid Lua code. If a script with the same name exists, it will be overwritten.",
     "type": "method",
-    "rightLabel": "Lifecycle"
+    "rightLabel": "PV8 File IO"
 },
 {
-    "displayText": "Reset()",
-    "snippet": "Reset()$1",
-    "description": " Reset() is called when a game is restarted. This is usually called instead of reloading the entire game. It allows you to perform additional configuration that would not be able to happen if the Init() method is not called. This is mostly ignored in the Runner and is mainly used in the Game Creator. ",
+    "displayText": "LoadScript(name)",
+    "snippet": "LoadScript( ${1:name} )$2",
+    "description": "The LoadScript() API allows you to parse a new Lua script at runtime from memory. You can use the AddScript() API to manually load text into memory or add additional Lua files to your game project. Also, any Lua files located in a System/Libs/ folder, whether at the root of the Workspace drive or on a disk, will be available to load.",
     "type": "method",
-    "rightLabel": "Lifecycle"
+    "rightLabel": "PV8 File IO"
 },
 {
-    "displayText": "Shutdown()",
-    "snippet": "Shutdown()$1",
-    "description": " Shutdown() is called when quitting a game or shutting down the Runner/Game Creator. This hook allows you to perform any last minute changes to the game's data such as saving or removing any temp files that will not be needed. ",
+    "displayText": "BackgroundColors(id)",
+    "snippet": "BackgroundColors( ${1:id} )$2",
+    "description": "The background color is used to fill the screen when clearing the display. You can use this method to read or update the background color at runtime. When calling BackgroundColors() without an argument, it returns the current background color as an int. You can pass in an optional int to update the background color by calling BackgroundColors(0), where 0 is any valid system color ID.",
     "type": "method",
-    "rightLabel": "Lifecycle"
+    "rightLabel": "PV8 Colors"
 },
 {
-    "displayText": "BackgroundColor(id)",
-    "snippet": "BackgroundColor(${1:id})$2",
-    "description": " The background color is used to fill the screen when clearing the display. You can use this method to read or update the background color at any point during the GameChip's draw phase. When calling BackgroundColor(), without an argument, it returns the current background color int. You can pass in an optional int to update the background color by calling BackgroundColor(0) where 0 is any valid ID in the ColorChip. Passing in a value such as -1, or one that is out of range, defaults the background color to magenta (#ff00ff) which is the engine's default transparent color. ",
+    "displayText": "Button(button, state, controllerID)",
+    "snippet": "Button( ${1:Buttons}, ${2:InputState}, ${3:controllerID} )$4",
+    "description": "The main form of input for Pixel Vision 8 is the controller's buttons. You can get the current state of any button by calling the Button() method and supplying a button ID. There are optional parameters for specifying an InputState and the controller ID.",
     "type": "method",
-    "rightLabel": "Color"
+    "rightLabel": "PV8 Input"
 },
 {
-    "displayText": "Color(id, value)",
-    "snippet": "Color(${1:id}, ${2:value})$3",
-    "description": " The Color() method allows you to read and update color values in the ColorChip. This method has two modes which require a color ID to work. By calling the method with just an ID, like Color(0), it returns a hex string for the given color at the supplied color ID. By passing in a new hex string, like Color(0, \"#FFFF00\"), you can change the color with the given ID. While you can use this method to modify color values directly, you should avoid doing this at run time since the DisplayChip must parse and cache the new hex value. If you just want to change a color to an existing value, use the ReplaceColor() method. ",
+    "displayText": "CalculateDistance(x0, y0, x1, y1)",
+    "snippet": "CalculateDistance( ${1:x0}, ${2:y0}, ${3:x1}, ${4:y1} )$5",
+    "description": "Fast calculation to get the distance between two points.",
     "type": "method",
-    "rightLabel": "Color"
+    "rightLabel": "PV8 Math"
 },
 {
-    "displayText": "TotalColors(ignoreEmpty)",
-    "snippet": "TotalColors(${1:ignoreEmpty})$2",
-    "description": " The TotalColors() method simply returns the total number of colors in the ColorChip. By default, it returns only colors that have been set to value other than magenta (#FF00FF) which is the default transparent value used by the engine. By calling TotalColors(false), it returns the total available color slots in the ColorChip. ",
+    "displayText": "CalculateIndex(x, y, width)",
+    "snippet": "CalculateIndex( ${1:x}, ${2:y}, ${3:width} )$4",
+    "description": "Converts an X and Y position into an index. This is useful for finding positions in 1D arrays that represent 2D data.",
     "type": "method",
-    "rightLabel": "Color"
+    "rightLabel": "PV8 Math"
+},
+{
+    "displayText": "CalculatePosition(index, width)",
+    "snippet": "CalculatePosition( ${1:index}, ${2:width} )$3",
+    "description": "Converts an index into an X and Y position to help when working with 1D arrays that represent 2D data.",
+    "type": "method",
+    "rightLabel": "PV8 Math"
+},
+{
+    "displayText": "Clamp(val, min, max)",
+    "snippet": "Clamp( ${1:val}, ${2:min}, ${3:max} )$4",
+    "description": "The Clamp() API limits a value between a minimum and maximum integer.",
+    "type": "method",
+    "rightLabel": "PV8 Math"
+},
+{
+    "displayText": "Clear(x, y, width, height)",
+    "snippet": "Clear( ${1:x}, ${2:y}, ${3:width}, ${4:height} )$5",
+    "description": "Clearing the display removes all of the existing pixel data, replacing it with the default background color. By calling Clear(), with no arguments, it automatically clears the entire display. You can manually define an area of the screen to clear by supplying optional x, y, width, and height argument values.",
+    "type": "method",
+    "rightLabel": "PV8 Rendering"
+},
+{
+    "displayText": "Colors(id, value)",
+    "snippet": "Colors( ${1:id}, ${2:value} )$3",
+    "description": "The Colors() API allows you to read and update color values in the ColorsChip. This API has two modes that require a color ID to work. By calling the method with just an ID, like Colors(0), it returns a HEX string for that color. If you supply an additional HEX string value, like Colors(0, \"#FFFF00\"), you can change the color with the given ID.",
+    "type": "method",
+    "rightLabel": "PV8 Colors"
 },
 {
     "displayText": "ColorsPerSprite()",
     "snippet": "ColorsPerSprite()$1",
-    "description": " Pixel Vision 8 sprites have limits around how many colors they can display at once which is called the Colors Per Sprite or CPS. The ColorsPerSprite() method returns this value from the SpriteChip. While this is read-only at run-time, it has other important uses. If you set up your ColorChip in palettes, grouping sets of colors together based on the SpriteChip's CPS value, you can use this to shift a sprite's color offset up or down by a fixed amount when drawing it to the display. Since this value does not change when a game is running, it is best to get a reference to it when the game starts up and store it in a local variable. ",
+    "description": "Pixel Vision 8 sprites have limits around how many colors they can display at once. This is called CPS which stands for Colors Per Sprite. The ColorsPerSprite() API returns this value from the SpriteChip.",
     "type": "method",
-    "rightLabel": "Color"
+    "rightLabel": "PV8 Colors"
 },
 {
-    "displayText": "ReplaceColor(index, id)",
-    "snippet": "ReplaceColor(${1:index}, ${2:id})$3",
-    "description": " The ReplaceColor() method allows you to quickly change a color to an existing color without triggering the DisplayChip to parse and cache a new hex value. Consider this an alternative to the Color() method. It is useful for simulating palette swapping animation on sprites pointed to a fixed group of color IDs. Simply cal the ReplaceColor() method and supply a target color ID position, then the new color ID it should point to. Since you are only changing the color's ID pointer, there is little to no performance penalty during the GameChip's draw phase. ",
+    "displayText": "CharacterToPixelData(character, fontName)",
+    "snippet": "CharacterToPixelData( ${1:character}, ${2:fontName} )$3",
+    "description": "The CharacterToPixelData() API converts a single font character into raw pixel data.",
     "type": "method",
-    "rightLabel": "Color"
-},
-{
-    "displayText": "Clear(x, y, width, height)",
-    "snippet": "Clear(${1:x}, ${2:y}, ${3:width}, ${4:height})$5",
-    "description": " Clearing the display removed all of the existing pixel data, replacing it with the default background color. The Clear() method allows you specify what region of the display to clear. By simply calling Clear(), with no arguments, it automatically clears the entire display. You can manually define an area of the screen to clear by supplying option x, y, width and height arguments. When clearing a specific area of the display, anything outside of the defined boundaries remains on the next draw phase. This is useful for drawing a HUD but clearing the display below for a scrolling map and sprites. Clear can only be used once during the draw phase. ",
-    "type": "method",
-    "rightLabel": "Display"
+    "rightLabel": "PV8 Texts"
 },
 {
     "displayText": "Display(visible)",
-    "snippet": "Display(${1:visible})$2",
-    "description": " The display's size defines the visible area where pixel data exists on the screen. Calculating this is important for knowing how to position sprites on the screen. The Display() method allows you to get the resolution of the display at run time. By default, this will return the visble screen area based on the overscan value set on the display chip. To calculate the exact overscan in pixels, you must subtract the full size from the visible size. Simply supply false as an argument to get the full display dimensions. ",
+    "snippet": "Display( ${1:visible} )$2",
+    "description": "The Display() method allows you to get the resolution of the display at run time. By default, this will return the visible screen area based on the overscan value set on the DisplayChip.",
     "type": "method",
-    "rightLabel": "Display"
+    "rightLabel": "PV8 Rendering"
 },
 {
-    "displayText": "DrawPixels(pixelData, x, y, width, height, drawMode, flipH, flipV, colorOffset)",
-    "snippet": "DrawPixels(${1:pixelData}, ${2:x}, ${3:y}, ${4:width}, ${5:height}, ${6:drawMode}, ${7:flipH}, ${8:flipV}, ${9:colorOffset})$10",
-    "description": " This method allows you to draw raw pixel data directly to the display. Depending on which draw mode you use, the pixel data could be rendered as a sprite or drawn directly onto the tilemap cache. Sprites drawn with this method still count against the total number the display can render but you can draw irregularly shaped sprites by defining a custom width and height. For drawnig into the tilemap cache directly, you can use this to change the way the tilemap looks at run-time without having to modify a sprite's pixel data. It is important to note that when you change a tile's sprite ID or color offset, the tilemap redraws it back to the cache overwriting any pixel data that was previously there. ",
-    "type": "method",
-    "rightLabel": "Display"
+    "displayText": "Init()",
+    "snippet": "Init()$1",
+    "description": "Init() is called when a game first loads up. This is where you should store configuration and inialize any variables you may need later on in the Update() and Draw() calls.",
+    "type": "function",
+    "rightLabel": "PV8 Lifecycle"
 },
 {
-    "displayText": "DrawPixel(x, y, colorRef, drawMode)",
-    "snippet": "DrawPixel(${1:x}, ${2:y}, ${3:colorRef}, ${4:drawMode})$5",
-    "description": " This method allows you to draw a single pixel to the Tilemap Cache. It's an expensive operation which leverages DrawPixels(). This should only be used in special occasions when batching pixel data draw request aren't possible. ",
-    "type": "method",
-    "rightLabel": "Display"
+    "displayText": "Draw()",
+    "snippet": "Draw()$1",
+    "description": "Draw() is called once per frame after the Update() has been completed. This is where all of your game's draw calls should take place such as clearing the display, drawing sprites, and pushing raw pixel data into the display.",
+    "type": "function",
+    "rightLabel": "PV8 Lifecycle"
 },
 {
-    "displayText": "DrawSprite(id, x, y, flipH, flipV, drawMode, colorOffset)",
-    "snippet": "DrawSprite(${1:id}, ${2:x}, ${3:y}, ${4:flipH}, ${5:flipV}, ${6:drawMode}, ${7:colorOffset})$8",
-    "description": " Sprites represent individual collections of pixel data at a fixed size. By default, Pixel Vision 8 sprites are 8 x 8 pixels and have a set limit of visible colors. You can use the DrawSprite() method to render any sprite stored in the Sprite Chip. The display also has a limitation on how many sprites can be on the screen at one time. Each time you call DrawSprite(), the sprite counts against the total amount the display can render. If you attempt to draw more sprites than the display can handle, the call is ignored. One thing to keep in mind when drawing sprites is that their x and y position wraps if they reach the right or bottom border of the screen. You need to change the overscan border to hide sprites offscreen. ",
+    "displayText": "DrawPixels(pixelData, x, y, width, height, flipH, flipV, drawMode, colorOffset)",
+    "snippet": "DrawPixels( ${1:pixelData}, ${2:x}, ${3:y}, ${4:width}, ${5:height}, ${6:flipH}, ${7:flipV}, ${8:DrawMode}, ${9:colorOffset} )$10",
+    "description": "The DrawPixels() API allows you to push raw pixel data directly to the display. While DrawPixels() is used under the hood by all of the drawing APIs, you lose some performance by calling it directly, especially in Lua. Since this bypasses the sprite counter, there is no limit to the number of draw calls you can make to any of the sprite layers.",
     "type": "method",
-    "rightLabel": "Display"
-},
-{
-    "displayText": "DrawSprites(ids, x, y, width, flipH, flipV, drawMode, colorOffset, onScreen, useScrollPos, bounds)",
-    "snippet": "DrawSprites(${1:ids}, ${2:x}, ${3:y}, ${4:width}, ${5:flipH}, ${6:flipV}, ${7:drawMode}, ${8:colorOffset}, ${9:onScreen}, ${10:useScrollPos}, ${11:bounds})$12",
-    "description": " The DrawSprites method makes it easier to combine and draw groups of sprites to the display in a grid. This is useful when trying to render 4 sprites together as a larger 16x16 pixel graphic. While there is no limit on the size of the sprite group which can be rendered, it is important to note that each sprite in the array still counts as an individual sprite. Sprites passed into the DrawSprites() method are visible if the display can render it. Under the hood, this method uses DrawSprite but solely manages positioning the sprites out in a grid. Another unique feature of his helper method is that it automatically hides sprites that go offscreen. When used with overscan border, it greatly simplifies drawing larger sprites to the display. ",
-    "type": "method",
-    "rightLabel": "Display"
-},
-{
-    "displayText": "DrawSpriteBlock(id, x, y, width, height, flipH, flipV, drawMode, colorOffset, onScreen, useScrollPos)",
-    "snippet": "DrawSpriteBlock(${1:id}, ${2:x}, ${3:y}, ${4:width}, ${5:height}, ${6:flipH}, ${7:flipV}, ${8:drawMode}, ${9:colorOffset}, ${10:onScreen}, ${11:useScrollPos})$12",
-    "description": " DrawSpriteBlock() is similar to DrawSprites except you define the first sprite (upper left corner) and the width x height (in sprites) to sample from sprite ram. This will create a larger sprite by using neighbor sprites. ",
-    "type": "method",
-    "rightLabel": "Display"
-},
-{
-    "displayText": "DrawTile(id, c, r, drawMode, colorOffset)",
-    "snippet": "DrawTile(${1:id}, ${2:c}, ${3:r}, ${4:drawMode}, ${5:colorOffset})$6",
-    "description": " The DrawTile method makes it easier to update the visuals of a tile on any of the map layers. By default, this will modify a single tile's sprite id and color offset. You can also define the DrawMode to target a specific layer. By default, DrawMode.Tile is used, but this method also accepts DrawMode.TilemapCache and DrawMode.UI to target the UI layer above the tilemap. It's important to note that this method can only draw a tile at a specific column and row. If you need pixel perfect drawing on the TilemapCache or UI layer, use the DrawPixels method. Finally, drawing a tile into the tilemap itself will force that tile to be copied to the Tilemap Cache on the next render pass just like calling the Tile() method. ",
-    "type": "method",
-    "rightLabel": "Display"
-},
-{
-    "displayText": "DrawTiles(ids, c, r, width, drawMode, colorOffset)",
-    "snippet": "DrawTiles(${1:ids}, ${2:c}, ${3:r}, ${4:width}, ${5:drawMode}, ${6:colorOffset})$7",
-    "description": " The DrawTiles method makes it easier to update the visuals of multiple tiles at once by leveraging the DrawTile method. Simply pass in an Array of sprite IDs, the column, row and width (in tiles) to make bulk changes to a tilemap layer. You can also define the DrawMode to target a specific layer. By default, DrawMode.Tile is used, but this method also accepts DrawMode.TilemapCache and DrawMode.UI to target the UI layer above the tilemap. ",
-    "type": "method",
-    "rightLabel": "Display"
-},
-{
-    "displayText": "DrawText(text, x, y, drawMode, font, colorOffset, spacing)",
-    "snippet": "DrawText(${1:text}, ${2:x}, ${3:y}, ${4:drawMode}, ${5:font}, ${6:colorOffset}, ${7:spacing})$8",
-    "description": " The DrawText() method allows you to render text to the display. By supplying a custom DrawMode, you can render characters as individual sprites (DrawMode.Sprite), tiles (DrawMode.Tile) or drawn directly into the tilemap cache (DrawMode.TilemapCache). When drawing text as sprites, you have more flexibility over position, but each character counts against the displays' maximum sprite count. When rendering text to the tilemap, more characters are shown and also increase performance when rendering large amounts of text. You can also define the color offset, letter spacing which only works for sprite and tilemap cache rendering, and a width in characters if you want the text to wrap. ",
-    "type": "method",
-    "rightLabel": "Display"
-},
-{
-    "displayText": "DrawTilemap(x, y, columns, rows, offsetX, offsetY, drawMode)",
-    "snippet": "DrawTilemap(${1:x}, ${2:y}, ${3:columns}, ${4:rows}, ${5:offsetX}, ${6:offsetY}, ${7:drawMode})$8",
-    "description": " By default, the tilemap renders to the display by simply calling DrawTilemap(). This automatically fills the entire display with the visible portion of the tilemap. To have more granular control over how to render the tilemap, you can supply an optional X and Y position to change where it draws on the screen. You can also modify the width (columns) and height (rows) that are displayed too. This is useful if you want to show a HUD or some other kind of image on the screen that is not overridden by the tilemap. To scroll the tilemap, you need to call the ScrollPosition() and supply a new scroll X and Y value. ",
-    "type": "method",
-    "rightLabel": "Display"
+    "rightLabel": "PV8 Drawing"
 },
 {
     "displayText": "DrawRect(x, y, width, height, color, drawMode)",
-    "snippet": "DrawRect(${1:x}, ${2:y}, ${3:width}, ${4:height}, ${5:color}, ${6:drawMode})$7",
-    "description": " This method allows you to draw a rectangle with a fill color. By default, this method is used to clear the screen but you can supply a color offset to change the color value and use it to fill a rectangle area with a specific color instead. ",
+    "snippet": "DrawRect( ${1:x}, ${2:y}, ${3:width}, ${4:height}, ${5:color}, ${6:DrawMode} )$7",
+    "description": "The DrawRect() API allows you to display a rectangle with a fill color on the screen. Since this API uses DrawPixels(), rectangles can be drawn to the tilemap cache or sprite layers.",
     "type": "method",
-    "rightLabel": "Display"
+    "rightLabel": "PV8 Drawing"
 },
 {
-    "displayText": "RedrawDisplay()",
-    "snippet": "RedrawDisplay()$1",
-    "description": " You can use RedrawDisplay to make clearing and drawing the tilemap easier. This is a helper method automatically calls both Clear() and DrawTilemap() for you. ",
+    "displayText": "DrawSprite(id, x, y, flipH, flipV, drawMode, colorOffset)",
+    "snippet": "DrawSprite( ${1:id}, ${2:x}, ${3:y}, ${4:flipH}, ${5:flipV}, ${6:DrawMode}, ${7:colorOffset} )$8",
+    "description": "The DrawSprite() API allows you to draw a single sprite to the display. Sprites represent individual collections of 8 x 8 blocks of pixel data. The display also has a limitation on how many sprites that can be on the screen at the same time. Each time you call DrawSprite(), the sprite counts against the total amount the display can render.",
     "type": "method",
-    "rightLabel": "Display"
+    "rightLabel": "PV8 Drawing"
 },
 {
-    "displayText": "ScrollPosition(x, y)",
-    "snippet": "ScrollPosition(${1:x}, ${2:y})$3",
-    "description": " You can scroll the tilemap by calling the ScrollPosition() method and supplying a new scroll X and Y position. By default, calling ScrollPosition() with no arguments returns a vector with the current scroll X and Y values. If you supply an X and Y value, it updates the tilemap's scroll position the next time you call the DrawTilemap() method. ",
+    "displayText": "DrawSpriteBlock(id, x, y, width, height, flipH, flipV, drawMode, colorOffset, onScreen, useScrollPos, bounds)",
+    "snippet": "DrawSpriteBlock( ${1:id}, ${2:x}, ${3:y}, ${4:width}, ${5:height}, ${6:flipH}, ${7:flipV}, ${8:DrawMode}, ${9:colorOffset}, ${10:onScreen}, ${11:useScrollPos}, ${12:bounds} )$13",
+    "description": "DrawSpriteBlock() is similar to DrawSprites except you define the first sprite (upper left corner) and the width x height (in sprites) to sample from sprite ram.",
     "type": "method",
-    "rightLabel": "Display"
+    "rightLabel": "PV8 Drawing"
 },
 {
-    "displayText": "WriteSaveData(key, value)",
-    "snippet": "WriteSaveData(${1:key}, ${2:value})$3",
-    "description": " Allows you to save string data to the game file itself. This data persistent even after restarting a game. ",
+    "displayText": "DrawSprites(ids, x, y, width, flipH, flipV, drawMode, colorOffset, onScreen, useScrollPos, bounds)",
+    "snippet": "DrawSprites( ${1:ids}, ${2:x}, ${3:y}, ${4:width}, ${5:flipH}, ${6:flipV}, ${7:DrawMode}, ${8:colorOffset}, ${9:onScreen}, ${10:useScrollPos}, ${11:bounds} )$12",
+    "description": "The DrawSprites() API makes it easier to draw a group of sprites to the display. Unlike the DrawSpriteBlock() API, you define the exact sprites you want to be drawn. While there is no limit on the size of the sprite group which can be rendered, it is important to note that each ID in the array still counts as an individual sprite.",
     "type": "method",
-    "rightLabel": "File IO"
+    "rightLabel": "PV8 Drawing"
 },
 {
-    "displayText": "ReadSaveData(key, defaultValue)",
-    "snippet": "ReadSaveData(${1:key}, ${2:defaultValue})$3",
-    "description": " Allows you to read saved data by supplying a key. If no matching key exists, \"undefined\" is returned. ",
+    "displayText": "DrawText(text, x, y, drawMode, drawMode, colorOffset, spacing)",
+    "snippet": "DrawText( ${1:text}, ${2:x}, ${3:y}, ${4:DrawMode}, ${5:font}, ${6:colorOffset}, ${7:spacing} )$8",
+    "description": "The DrawText() API allows you to render text to the display. Files ending with the .font.png extension are loaded by the TextChip and converted into character sprites. The TextChip stores these characters separately from SpriteChip’s own sprites.",
     "type": "method",
-    "rightLabel": "File IO"
+    "rightLabel": "PV8 Drawing"
 },
 {
-    "displayText": "Key(key, state)",
-    "snippet": "Key(${1:key}, ${2:state})$3",
-    "description": " While the main form of input in Pixel Vision 8 comes from the controllers, you can test for keyboard input by calling the Key() method. When called, this method returns the current state of a key. The method accepts the Keys enum, or an int, for a specific key. In additon, you need to provide the input state to check for. The InputState enum has two states, Down and Released. By default, Down is automatically used which returns true when the key is being pressed in the current frame. When using Released, the method returns true if the key is currently up but was down in the last frame. ",
+    "displayText": "DrawTilemap(x, y, columns, rows, offsetX, offsetY, drawMode)",
+    "snippet": "DrawTilemap( ${1:x}, ${2:y}, ${3:columns}, ${4:rows}, ${5:offsetX}, ${6:offsetY}, ${7:drawMode} )$8",
+    "description": " By default, the tilemap renders to the display by simply calling DrawTilemap(). This automatically fills the entire display with the visible portion of the tilemap. To have more granular control over how to render the tilemap, you can supply an optional X and Y position to change where it draws on the screen. You can also modify the width (columns) and height (rows) that are displayed too. This is useful if you want to show a HUD or some other kind of image on the screen that is not overridden by the tilemap. To scroll the tilemap, you need to call the ScrollPosition() and supply a new scroll X and Y value. ",
     "type": "method",
-    "rightLabel": "Input"
+    "rightLabel": "PV8 Drawing"
 },
 {
-    "displayText": "MouseButton(button, state)",
-    "snippet": "MouseButton(${1:button}, ${2:state})$3",
-    "description": " Pixel Vision 8 supports mouse input. You can get the current state of the mouse's left (0) and right (1) buttons by calling MouseButton(). In addition to supplying a button ID, you also need to provide the InputState enum. The InputState enum contains options for testing the Down and Released states of the supplied button ID. By default, Down is automatically used which returns true when the key was pressed in the current frame. When using Released, the method returns true if the key is currently up but was down in the last frame. ",
+    "displayText": "Flag(column, row, value)",
+    "snippet": "Flag( ${1:column}, ${2:row}, ${3:value} )$4",
+    "description": "The Flag() API allows you to quickly access just the flag value of a tile. This is useful when trying to calculate collision on the tilemap. By default, you can call this method with just a column and row position to return the flag value at that tile. If you supply a new value, it will be overridden on the tile.",
     "type": "method",
-    "rightLabel": "Input"
-},
-{
-    "displayText": "Button(button, state, controllerID)",
-    "snippet": "Button(${1:button}, ${2:state}, ${3:controllerID})$4",
-    "description": " The main form of input for Pixel Vision 8 is the controller's buttons. You can get the current state of any button by calling the Button() method and supplying a button ID, an InputState enum, and the controller ID. When called, the Button() method returns a bool for the requested button and its state. The InputState enum contains options for testing the Down and Released states of the supplied button ID. By default, Down is automatically used which returns true when the key was pressed in the current frame. When using Released, the method returns true if the key is currently up but was down in the last frame. ",
-    "type": "method",
-    "rightLabel": "Input"
-},
-{
-    "displayText": "MousePosition()",
-    "snippet": "MousePosition()$1",
-    "description": " The MousePosition() method returns a vector for the current cursor's X and Y position. This value is read-only. The mouse's 0,0 position is in the upper left-hand corner of the display ",
-    "type": "method",
-    "rightLabel": "Input"
+    "rightLabel": "PV8 Tilemap"
 },
 {
     "displayText": "InputString()",
     "snippet": "InputString()$1",
-    "description": " The InputString() method returns the keyboard input entered this frame. This method is useful for capturing keyboard text input. ",
+    "description": "The InputString() API returns the keyboard input from the current frame. This API is useful for capturing keyboard text input.",
     "type": "method",
-    "rightLabel": "Input"
+    "rightLabel": "PV8 Input"
 },
 {
-    "displayText": "PlaySound(id, channel)",
-    "snippet": "PlaySound(${1:id}, ${2:channel})$3",
-    "description": " This method plays back a sound on a specific channel. The SoundChip has a limit of active channels so playing a sound effect while another was is playing on the same channel will cancel it out and replace with the new sound. ",
+    "displayText": "IsChannelPlaying(channel)",
+    "snippet": "IsChannelPlaying( ${1:channel} )$2",
+    "description": "Returns a bool if the specified audio channel is playing a sound. Since channels can only play one sound effect at a time, you may need to test if a channel is currently playing before playing a new sound effect.",
     "type": "method",
-    "rightLabel": "Sound"
+    "rightLabel": "PV8 Sounds"
 },
 {
-    "displayText": "Sound(id, data)",
-    "snippet": "Sound(${1:id}, ${2:data})$3",
-    "description": " This method allows your read and write raw sound data on the SoundChip. ",
+    "displayText": "Key(key, state)",
+    "snippet": "Key( ${1:Keys}, ${2:InputState} )$3",
+    "description": "While the main forms of input for Pixel Vision 8 are the controllers, you can test for keyboard input by calling the Key() API. When this API is called, it returns the current state of that specific key.",
     "type": "method",
-    "rightLabel": "Sound"
+    "rightLabel": "PV8 Input"
 },
 {
-    "displayText": "StopSound(channel)",
-    "snippet": "StopSound(${1:channel})$2",
-    "description": " Use StopSound() to stop any sound playing on a specific channel. ",
+    "displayText": "MaxSpriteCount(total)",
+    "snippet": "MaxSpriteCount( ${1:total} )$2",
+    "description": " This method returns the maximum number of sprites the Display Chip can render in a single frame. Use this to better understand the limitations of the hardware your game is running on. This is a read only property at runtime. ",
     "type": "method",
-    "rightLabel": "Sound"
+    "rightLabel": "PV8 Sprites"
 },
 {
-    "displayText": "PlaySong(loopIDs, loop)",
-    "snippet": "PlaySong(${1:loopIDs}, ${2:loop})$3",
-    "description": " This helper method allows you to automatically load a set of loops as a complete song and plays them back. You can also define if the tracks should loop when they are done playing. ",
+    "displayText": "MouseButton(button, state)",
+    "snippet": "MouseButton( ${1:button}, ${2:InputState} )$3",
+    "description": "Pixel Vision 8 supports mouse input. You can get the current state of the mouse's left (0) and right (1) buttons by calling MouseButton()API. In addition to supplying a button ID, you can also provide an option InputState.",
     "type": "method",
-    "rightLabel": "Sound"
+    "rightLabel": "PV8 Input"
+},
+{
+    "displayText": "MousePosition()",
+    "snippet": "MousePosition()$1",
+    "description": "The MousePosition() API returns a Point for the mouse cursor's X and Y position. The mouse's 0,0 position is in the upper left-hand corner of the display and when the mouse is off-screen it will return -1. This value is read-only.",
+    "type": "method",
+    "rightLabel": "PV8 Input"
+},
+{
+    "displayText": "NewPoint(x, y)",
+    "snippet": "NewPoint( ${1:x}, ${2:y} )$3",
+    "description": "A Point is a Pixel Vision 8 primitive used for defining an X and Y position on the display. The NewPoint() API creates a new instance for you. It’s important to keep in mind that point only stores integers for the X and Y value.",
+    "type": "method",
+    "rightLabel": "PV8 Geometry"
+},
+{
+    "displayText": "NewRect(x, y, w, h)",
+    "snippet": "NewRect( ${1:x}, ${2:y}, ${3:w}, ${4:h} )$5",
+    "description": "A Rectangle is a Pixel Vision 8 primitive used for defining the bounds of an object on the display. It contains an X, W, Width and Height property. The Rectangle object class also has some additional methods to aid with collision detection.",
+    "type": "method",
+    "rightLabel": "PV8 Geometry"
+},
+{
+    "displayText": "NewCanvas(w, h)",
+    "snippet": "NewCanvas( ${1:w}, ${2:h} )$3",
+    "description": "The canvas is a special TextureData derivative that supports drawing primitive shapes such as lines, circles, and rectangles. You can also draw sprites and text to it as well. When you are done drawing on the canvas, you can copy the pixel data into the SpriteChip or directly to the tilemap cache. While the canvas allows run-time drawing, it’s not part of the core Pixel Vision 8 API.",
+    "type": "method",
+    "rightLabel": "PV8 Geometry"
+},
+{
+    "displayText": "PaletteOffset(value, paletteColorID)",
+    "snippet": "PaletteOffset( ${1:value}, ${2:paletteColorID} )$3",
+    "description": "By calling the PaletteOffset() API, it will convert a palette ID into the correct color ID for you. When used in the place of any of the drawing API’s colorOffset arguments, you can easily shift between any of the 8 palettes during run-time. There is an optional argument to supply a paletteColorID which gives you the color ID for a specific position inside of the palette.",
+    "type": "method",
+    "rightLabel": "PV8 Colors"
 },
 {
     "displayText": "PauseSong()",
     "snippet": "PauseSong()$1",
-    "description": " Toggles the current playback state of the sequencer. If the song is playing it will pause, if it is paused it will play. ",
+    "description": "The PauseSong() API toggles the current playback state of the sequencer. If the song is playing, it will pause. If the song is paused, it will play.",
     "type": "method",
-    "rightLabel": "Sound"
+    "rightLabel": "PV8 Music"
+},
+{
+    "displayText": "PlaySong(id, loop, startAt)",
+    "snippet": "PlaySong( ${1:id}, ${2:loop}, ${3:startAt} )$4",
+    "description": "The PlaySong() API allows you to activate the MusicChip’s tracker to playback any of the songs stored in memory. A song is simply a collection of patterns. You can supply an optional parameter called startAt to tell the MusicChip which pattern to start the song at.",
+    "type": "method",
+    "rightLabel": "PV8 Music"
+},
+{
+    "displayText": "PlaySound(id, channel)",
+    "snippet": "PlaySound( ${1:id}, ${2:channel} )$3",
+    "description": "The PlaySound() API allows playing a single sound effect on a specific channel. The SoundChip has a limited number of active channels, so playing a sound effect on a channel where a sound is already playing will override it.",
+    "type": "method",
+    "rightLabel": "PV8 Sounds"
+},
+{
+    "displayText": "ReadMetaData(key, defaultValue)",
+    "snippet": "ReadMetaData( ${1:key}, ${2:defaultValue} )$3",
+    "description": "The ReadMetadata() API allows you to read the metadata that is passed into the game when it loads. This is used by the Pixel Vision 8 Runner to pass data between load sessions.",
+    "type": "method",
+    "rightLabel": "PV8 File IO"
+},
+{
+    "displayText": "ReadSaveData(key, defaultValue)",
+    "snippet": "ReadSaveData( ${1:key}, ${2:defaultValue} )$3",
+    "description": "The ReadSaveData() API allows you to read saved data by supplying a key. If no matching key exists, \"undefined\" is returned.",
+    "type": "method",
+    "rightLabel": "PV8 File IO"
+},
+{
+    "displayText": "RebuildTilemap()",
+    "snippet": "RebuildTilemap()$1",
+    "description": "The RebuildTilemap() API forces the tilemap to redraw the tilemap cache layer. Use this to clear any pixel data drawn on top of tiles in the tilemap cache layer.",
+    "type": "method",
+    "rightLabel": "PV8 Tilemap"
+},
+{
+    "displayText": "RedrawDisplay()",
+    "snippet": "RedrawDisplay()$1",
+    "description": "The RedrawAPI() allows you to execute both the Clear() and DrawTilemap() APIs in a single call. This is a simple helper function to make redrawing the display easier. If you need to supply additional arguments to either the Clear() or DrawTilemap() APIs, then you’ll need to call each one independently without using RedrawDisplay().",
+    "type": "method",
+    "rightLabel": "PV8 Rendering"
+},
+{
+    "displayText": "Repeat(val, max)",
+    "snippet": "Repeat( ${1:val}, ${2:max} )$3",
+    "description": "The Repeat() API allows you to reset the value of a number if it goes past a maximum value. When counting backward, Repeat() will set the value to the maximum when below 0.",
+    "type": "method",
+    "rightLabel": "PV8 Math"
+},
+{
+    "displayText": "Reset()",
+    "snippet": "Reset()$1",
+    "description": "Reset() is called when a game is restarted. This is called instead of reloading the entire game. It allows you to perform additional configuration that should happen if the Init() method is not called.",
+    "type": "function",
+    "rightLabel": "PV8 Lifecycle"
+},
+{
+    "displayText": "RewindSong(position, loopID)",
+    "snippet": "RewindSong( ${1:position}, ${2:loopID} )$3",
+    "description": "The RewindSong() API allows you rewind the currently playing song to a specific position and pattern ID. Calling this API without any arguments will simply rewind the song to the beginning of the first pattern.",
+    "type": "method",
+    "rightLabel": "PV8 Music"
+},
+{
+    "displayText": "ScrollPosition(x, y)",
+    "snippet": "ScrollPosition( ${1:x}, ${2:y} )$3",
+    "description": "You can scroll the tilemap by calling the ScrollPosition() API and supplying a new scroll X and Y position. By default, calling ScrollPosition() with no arguments returns a Point with the current scroll X and Y values. If you supply an X and Y value, it updates the tilemap's scroll position the next time you call the DrawTilemap() API.",
+    "type": "method",
+    "rightLabel": "PV8 Rendering"
+},
+{
+    "displayText": "Shutdown()",
+    "snippet": "Shutdown()$1",
+    "description": "Shutdown() is called when quitting a game or shutting down the Runner/Game Creator. This hook allows you to perform any last minute changes to the game's data such as saving or removing any temp files that will not be needed.",
+    "type": "method",
+    "rightLabel": "PV8 Lifecycle"
+},
+{
+    "displayText": "SongData()",
+    "snippet": "SongData()$1",
+    "description": " Returns a dictionary with information about the current state of the music chip. ",
+    "type": "method",
+    "rightLabel": "PV8 Music"
+},
+{
+    "displayText": "Sound(id, data)",
+    "snippet": "Sound( ${1:id}, ${2:data} )$3",
+    "description": "The Sound() API allows you to read raw sound data from the SoundChip. You need to provide a sound effect ID. If you supply the optional data argument, which is a comma-delimited string of sound effect property values, you’ll be able to update the sound effect.",
+    "type": "method",
+    "rightLabel": "PV8 Sounds"
+},
+{
+    "displayText": "SplitLines(str)",
+    "snippet": "SplitLines( ${1:str} )$2",
+    "description": " This calls the TextUtil's SplitLines() helper to convert text with line breaks (\\n) into a collection of lines. This can be used in conjunction with the WordWrap() helper to render large blocks of text line by line with the DrawText() API. ",
+    "type": "method",
+    "rightLabel": "PV8 Text"
+},
+{
+    "displayText": "Sprite(id, data)",
+    "snippet": "Sprite( ${1:id}, ${2:data} )$3",
+    "description": "The Sprite() API allows you to read and write pixel data directly to the SpriteChip’s memory. Sprite pixel data is simply an array of color IDs. When calling the Sprite() with only an ID argument, you will get the sprite's pixel data. If you supply data, it will overwrite the sprite.",
+    "type": "method",
+    "rightLabel": "PV8 Sprites"
+},
+{
+    "displayText": "SpriteSize(width, height)",
+    "snippet": "SpriteSize( ${1:width}, ${2:height} )$3",
+    "description":" Returns the size of the sprite as a Vector where X and Y represent the width and height.",
+    "type": "method",
+    "rightLabel": "PV8 Sprites"
 },
 {
     "displayText": "StopSong()",
     "snippet": "StopSong()$1",
-    "description": " Stops the sequencer. ",
+    "description": "The StopSong() API will stop the currently playing song.",
     "type": "method",
-    "rightLabel": "Sound"
+    "rightLabel": "PV8 Music"
 },
 {
-    "displayText": "RewindSong(position, loopID)",
-    "snippet": "RewindSong(${1:position}, ${2:loopID})$3",
-    "description": " Rewinds the sequencer to the beginning of the currently loaded song. You can define the position in the loop and the loop where playback should begin. Calling this method without any arguments will simply rewind the song to the beginning of the first loop. ",
+    "displayText": "StopSound(channel)",
+    "snippet": "StopSound( ${1:channel} )$2",
+    "description": "Use StopSound() to stop any sound playing on a specific channel.",
     "type": "method",
-    "rightLabel": "Sound"
+    "rightLabel": "PV8 Sounds"
 },
 {
-    "displayText": "SpriteSize(width, height)",
-    "snippet": "SpriteSize(${1:width}, ${2:height})$3",
-    "description": " Returns the size of the sprite as a Vector where X and Y represent the width and height. ",
+    "displayText": "Tile(column, row, spriteID, colorOffset, flag, flipH, flipV)",
+    "snippet": "Tile( ${1:column}, ${2:row}, ${3:spriteID}, ${4:colorOffset}, ${5:flag}, ${6:flipH}, ${7:flipV} )$8",
+    "description": "The Tile() API allows you to get the current sprite, color offset and flag values associated with a given tile ID. You can optionally supply your own values if you want to update the tile. ",
     "type": "method",
-    "rightLabel": "Sprite"
+    "rightLabel": "PV8 Tilemap"
 },
 {
-    "displayText": "Sprite(id, data)",
-    "snippet": "Sprite(${1:id}, ${2:data})$3",
-    "description": " This allows you to return the pixel data of a sprite or overwrite it with new data. Sprite pixel data is an array of color reference ids. When calling the method with only an id argument, you will get the sprite's pixel data. If you supply data, it will overwrite the sprite. It is important to make sure that any new pixel data should be the same length of the existing sprite's pixel data. This can be calculated by multiplying the sprite's width and height. You can add the transparent area to a sprite's data by using -1. ",
+    "displayText": "TilemapSize(width, height, clear)",
+    "snippet": "TilemapSize( ${1:width}, ${2:height}, ${3:clear} )$4",
+    "description": "The TilemapSize() API returns a Point representing the size of the tilemap in columns (X) and rows (Y). To find the size in pixels, you will need to multiply the returned Point’s X and Y values by the sprite size's X and Y. This method also allows you to resize the tilemap by passing in an optional new Width and Height.",
     "type": "method",
-    "rightLabel": "Sprite"
+    "rightLabel": "PV8 Tilemap"
 },
 {
-    "displayText": "Sprites(ids, width)",
-    "snippet": "Sprites(${1:ids}, ${2:width})$3",
-    "description": " This allows you to get the pixel data of multiple sprites. This is a read only method but can be used to copy a collection of sprites into memory and draw them to the display in a single pass. ",
+    "displayText": "TotalColors(ignoreEmpty)",
+    "snippet": "TotalColors( ${1:ignoreEmpty} )$2",
+    "description": " The TotalColors() method simply returns the total number of colors in the ColorsChip. By default, it returns only colors that have been set to value other than magenta (#FF00FF) which is the default transparent value used by the engine. By calling TotalColors(false), it returns the total available color slots in the ColorsChip. ",
     "type": "method",
-    "rightLabel": "Sprite"
+    "rightLabel": "PV8 Colors"
 },
 {
     "displayText": "TotalSprites(ignoreEmpty)",
-    "snippet": "TotalSprites(${1:ignoreEmpty})$2",
-    "description": " Returns the total number of sprites in the system. You can pass in an optional argument to get a total number of sprites the Sprite Chip can store by passing in false for ignoreEmpty. By default, only sprites with pixel data will be included in the total return. ",
+    "snippet": "TotalSprites( ${1:ignoreEmpty} )$2",
+    "description": "The TotalSprites() API returns the total number of sprites in the SpriteChip. By supplying true for the ignoreEmpty parameter, it will only return sprites that contain pixel data.",
     "type": "method",
-    "rightLabel": "Sprite"
+    "rightLabel": "PV8 Sprites"
 },
 {
-    "displayText": "MaxSpriteCount(total)",
-    "snippet": "MaxSpriteCount(${1:total})$2",
-    "description": " This method returns the maximum number of sprites the Display Chip can render in a single frame. Use this to better understand the limitations of the hardware your game is running on. This is a read only property at runtime. ",
-    "type": "method",
-    "rightLabel": "Sprite"
+    "displayText": "Update(timeDelta)",
+    "snippet": "Update( ${1:timeDelta} )$2",
+    "description": "Update() is called once per frame at the beginning of the game loop. This is where you should put all non-visual game logic such as character position calculations, detecting input and performing updates to your animation system. The timeDelta is provided on each frame so you can calculate the difference in milliseconds since the last render took place.",
+    "type": "function",
+    "rightLabel": "PV8 Lifecycle"
 },
 {
-    "displayText": "Flag(column, row, value)",
-    "snippet": "Flag(${1:column}, ${2:row}, ${3:value})$4",
-    "description": " This allows you to quickly access just the flag value of a tile. This is useful when trying to the caluclate collision on the tilemap. By default, you can call this method and return the flag value. If you supply a new value, it will be overridden on the tile. Changing a tile's flag value does not force the tile to be redrawn to the tilemap cache. ",
+    "displayText": "UpdateTiles(ids, column, row, columns, colorOffset, flag)",
+    "snippet": "UpdateTiles( ${1:ids}, ${2:column}, ${3:row}, ${4:columns},  ${5:colorOffset}, ${6:flag} )$7",
+    "description": "The UpdateTiles() API allows you to update the color offset and flag values of multiple tiles at once. Simply supply an array of tile IDs and the new tile’s color offset and a flag value. This helper method uses the Tile() API under the hood to update each tile, so any changes to a tile’s color offset will automatically force it to be redrawn to the tilemap cache layer.",
     "type": "method",
-    "rightLabel": "Tilemap"
+    "rightLabel": "PV8 Tilemap"
 },
 {
-    "displayText": "Tile(column, row, spriteID, colorOffset, flag)",
-    "snippet": "Tile(${1:column}, ${2:row}, ${3:spriteID}, ${4:colorOffset}, ${5:flag})$6",
-    "description": " This allows you to get the current sprite id, color offset and flag values associated with a given tile. You can optionally supply your own if you want to change the tile's values. Changing a tile's sprite id or color offset will for the tilemap to redraw it to the cache on the next frame. If you are drawing raw pixel data into the tilemap cache in the same position, it will be overwritten with the new tile's pixel data. ",
+    "displayText": "WordWrap(text, width)",
+    "snippet": "WordWrap( ${1:text}, ${2:width} )$3",
+    "description": "The WordWrap() API allows you to wrap a string of text to a specified character width. It will automatically insert new line breaks (\n) to keep each line of text within the specified width. This can be used in conjunction with the SplitLines() API to render large blocks of text to the display line by line within a specific character width.",
     "type": "method",
-    "rightLabel": "Tilemap"
+    "rightLabel": "PV8 Text"
 },
 {
-    "displayText": "RebuildTilemap(columns, rows, spriteIDs, colorOffsets, flags)",
-    "snippet": "RebuildTilemap(${1:columns}, ${2:rows}, ${3:spriteIDs}, ${4:colorOffsets}, ${5:flags})$6",
-    "description": " This forces the map to redraw its cached pixel data. Use this to clear any pixel data added after the map created the pixel data cache. ",
+    "displayText": "WriteSaveData(key, value)",
+    "snippet": "WriteSaveData( ${1:key}, ${2:value} )$3",
+    "description": "The WriteSaveData() API allows you to write saved data by supplying a key and value. Once saved, this data persists even after restarting a game.",
     "type": "method",
-    "rightLabel": "Tilemap"
+    "rightLabel": "PV8 File IO"
 },
 {
-    "displayText": "TilemapSize(width, height)",
-    "snippet": "TilemapSize(${1:width}, ${2:height})$3",
-    "description": " This will return a vector representing the size of the tilemap in columns (x) and rows (y). To find the size in pixels, you will need to multiply the returned vectors x and y values by the sprite size's x and y. This method also allows you to resize the tilemap by passing in an optional new width and height. Resizing the tile map is destructive, so any changes will automatically clear the tilemap's sprite ids, color offsets, and flag values. ",
-    "type": "method",
-    "rightLabel": "Tilemap"
+    "displayText": "DrawMode.TilemapCache",
+    "snippet": "DrawMode.TilemapCache",
+    "description": "Draws pixel data to the tilemap cache layer.",
+    "type": "variable",
+    "rightLabel": "PV8 Draw Mode"
 },
 {
-    "displayText": "UpdateTiles(column, row, columns, ids, colorOffset, flag)",
-    "snippet": "UpdateTiles(${1:column}, ${2:row}, ${3:columns}, ${4:ids}, ${5:colorOffset}, ${6:flag})$7",
-    "description": " A helper method which allows you to update several tiles at once. Simply define the start column and row position, the width of the area to update in tiles and supply a new int array of sprite IDs. You can also modify the color offset and flag value of the tiles via the optional parameters. This helper method uses calls the Tile() method to update each tile, so any changes to a tile will be automatically redrawn to the tilemap's cache. ",
-    "type": "method",
-    "rightLabel": "Tilemap"
+    "displayText": "DrawMode.SpriteBelow",
+    "snippet": "DrawMode.SpriteBelow",
+    "description": "This is a layer dedicated to sprites just above the background.",
+    "type": "variable",
+    "rightLabel": "PV8 Draw Mode"
+},
+{
+    "displayText": "DrawMode.Tile",
+    "snippet": "DrawMode.Tile",
+    "description": "This is the tilemap layer and is drawn above the SpriteBelow layer allowing sprites to appear behind the background.",
+    "type": "variable",
+    "rightLabel": "PV8 Draw Mode"
+},
+{
+    "displayText": "DrawMode.Sprite",
+    "snippet": "DrawMode.Sprite",
+    "description": "This is the default layer for sprites to be rendered at. It is above the background.",
+    "type": "variable",
+    "rightLabel": "PV8 Draw Mode"
+},
+{
+    "displayText": "DrawMode.UI",
+    "snippet": "DrawMode.UI",
+    "description": "This is a special layer which can be used to draw raw pixel data above the background and sprites. It's designed for HUDs in your game and other graphics that do not scroll with the tilemap.",
+    "type": "variable",
+    "rightLabel": "PV8 Draw Mode"
+},
+{
+    "displayText": "DrawMode.SpriteAbove",
+    "snippet": "DrawMode.SpriteAbove",
+    "description": "This layer allows sprites to render above the UI layer. It is useful for mouse cursors or other graphics that need to be on top of all other layers.",
+    "type": "variable",
+    "rightLabel": "PV8 Draw Mode"
+},
+{
+    "displayText": "InputState.Down",
+    "snippet": "InputState.Down",
+    "description": "Determins if the input is currently down.",
+    "type": "variable",
+    "rightLabel": "PV8 Input State"
+},
+{
+    "displayText": "InputState.Released",
+    "snippet": "InputState.Released",
+    "description": "Determins if the input is currently up but was down in the previous frame.",
+    "type": "variable",
+    "rightLabel": "PV8 Input State"
+},
+{
+    "displayText": "Buttons.Up",
+    "snippet": "Buttons.Up",
+    "description": "This represents the Up button on the controller.",
+    "type": "variable",
+    "rightLabel": "PV8 Button"
+},
+{
+    "displayText": "Buttons.Down",
+    "snippet": "Buttons.Down",
+    "description": "This represents the Down button on the controller.",
+    "type": "variable",
+    "rightLabel": "PV8 Button"
+},
+{
+    "displayText": "Buttons.Left",
+    "snippet": "Buttons.Left",
+    "description": "This represents the Left button on the controller.",
+    "type": "variable",
+    "rightLabel": "PV8 Button"
+},
+{
+    "displayText": "Buttons.Right",
+    "snippet": "Buttons.Right",
+    "description": "This represents the Right button on the controller.",
+    "type": "variable",
+    "rightLabel": "PV8 Button"
+},
+{
+    "displayText": "Buttons.A",
+    "snippet": "Buttons.A",
+    "description": "This represents the A button on the controller.",
+    "type": "variable",
+    "rightLabel": "PV8 Button"
+},
+{
+    "displayText": "Buttons.B",
+    "snippet": "Buttons.B",
+    "description": "This represents the B button on the controller.",
+    "type": "variable",
+    "rightLabel": "PV8 Button"
+},
+{
+    "displayText": "Buttons.Select",
+    "snippet": "Buttons.Select",
+    "description": "This represents the Select button on the controller.",
+    "type": "variable",
+    "rightLabel": "PV8 Button"
+},
+{
+    "displayText": "Buttons.Start",
+    "snippet": "Buttons.Start",
+    "description": "This represents the Start button on the controller.",
+    "type": "variable",
+    "rightLabel": "PV8 Button"
+},
+{
+    "displayText": "Keys.Backspace",
+  "snippet": "Keys.Backspace",
+  "description": "Represents the keyboard's 'Backspace' key (8).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Tab",
+  "snippet": "Keys.Tab",
+  "description": "Represents the keyboard's 'Tab' key (9).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Enter",
+  "snippet": "Keys.Enter",
+  "description": "Represents the keyboard's 'Enter' key (13).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Escape",
+  "snippet": "Keys.Escape",
+  "description": "Represents the keyboard's 'Escape' key (27).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Space",
+  "snippet": "Keys.Space",
+  "description": "Represents the keyboard's 'Space' key (32).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.PageUp",
+  "snippet": "Keys.PageUp",
+  "description": "Represents the keyboard's 'Page Up' key (33).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.PageDown",
+  "snippet": "Keys.PageDown",
+  "description": "Represents the keyboard's 'Page Down' key (34).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.End",
+  "snippet": "Keys.End",
+  "description": "Represents the keyboard's 'End' key (35).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Home",
+  "snippet": "Keys.Home",
+  "description": "Represents the keyboard's 'Home' key (36).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Left",
+  "snippet": "Keys.Left",
+  "description": "Represents the keyboard's 'Left' arrow key (37).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Up",
+  "snippet": "Keys.Up",
+  "description": "Represents the keyboard's 'Up' arrow key (38).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Right",
+  "snippet": "Keys.Right",
+  "description": "Represents the keyboard's 'Right' arrow key (39).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Down",
+  "snippet": "Keys.Down",
+  "description": "Represents the keyboard's 'Down' arrow key (40).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Insert",
+  "snippet": "Keys.Insert",
+  "description": "Represents the keyboard's 'Insert' key (45).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Delete",
+  "snippet": "Keys.Delete",
+  "description": "Represents the keyboard's 'Delete' key (46).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Alpha0",
+  "snippet": "Keys.Alpha0",
+  "description": "Represents the keyboard's '0' number key (48).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Alpha1",
+  "snippet": "Keys.Alpha1",
+  "description": "Represents the keyboard's '1' number key (49).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Alpha2",
+  "snippet": "Keys.Alpha2",
+  "description": "Represents the keyboard's '2' number key (50).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Alpha3",
+  "snippet": "Keys.Alpha3",
+  "description": "Represents the keyboard's '3' number key (51).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Alpha4",
+  "snippet": "Keys.Alpha4",
+  "description": "Represents the keyboard's '4' number key (52).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Alpha5",
+  "snippet": "Keys.Alpha5",
+  "description": "Represents the keyboard's '5' number key (53).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Alpha6",
+  "snippet": "Keys.Alpha6",
+  "description": "Represents the keyboard's '6' number key (54).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Alpha7",
+  "snippet": "Keys.Alpha7",
+  "description": "Represents the keyboard's '7' number key (55).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Alpha8",
+  "snippet": "Keys.Alpha8",
+  "description": "Represents the keyboard's '8' number key (56).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Alpha9",
+  "snippet": "Keys.Alpha9",
+  "description": "Represents the keyboard's '9' number key (57).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.A",
+  "snippet": "Keys.A",
+  "description": "Represents the keyboard's 'A' key (65).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.B",
+  "snippet": "Keys.B",
+  "description": "Represents the keyboard's 'B' key (66).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.C",
+  "snippet": "Keys.C",
+  "description": "Represents the keyboard's 'C' key (67).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.D",
+  "snippet": "Keys.D",
+  "description": "Represents the keyboard's 'D' key (68).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.E",
+  "snippet": "Keys.E",
+  "description": "Represents the keyboard's 'E' key (69).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.F",
+  "snippet": "Keys.F",
+  "description": "Represents the keyboard's 'F' key (70).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.G",
+  "snippet": "Keys.G",
+  "description": "Represents the keyboard's 'G' key (71).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.H",
+  "snippet": "Keys.H",
+  "description": "Represents the keyboard's 'H' key (72).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.I",
+  "snippet": "Keys.I",
+  "description": "Represents the keyboard's 'I' key (73).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.J",
+  "snippet": "Keys.J",
+  "description": "Represents the keyboard's 'J' key (74).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.K",
+  "snippet": "Keys.K",
+  "description": "Represents the keyboard's 'K' key (75).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.L",
+  "snippet": "Keys.L",
+  "description": "Represents the keyboard's 'L' key (76).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.M",
+  "snippet": "Keys.M",
+  "description": "Represents the keyboard's 'M' key (77).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.N",
+  "snippet": "Keys.N",
+  "description": "Represents the keyboard's 'N' key (78).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.O",
+  "snippet": "Keys.O",
+  "description": "Represents the keyboard's 'O' key (79).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.P",
+  "snippet": "Keys.P",
+  "description": "Represents the keyboard's 'P' key (80).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Q",
+  "snippet": "Keys.Q",
+  "description": "Represents the keyboard's 'Q' key (81).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.R",
+  "snippet": "Keys.R",
+  "description": "Represents the keyboard's 'R' key (82).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.S",
+  "snippet": "Keys.S",
+  "description": "Represents the keyboard's 'S' key (83).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.T",
+  "snippet": "Keys.T",
+  "description": "Represents the keyboard's 'T' key (84).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.U",
+  "snippet": "Keys.U",
+  "description": "Represents the keyboard's 'U' key (85).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.V",
+  "snippet": "Keys.V",
+  "description": "Represents the keyboard's 'V' key (86).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.W",
+  "snippet": "Keys.W",
+  "description": "Represents the keyboard's 'W' key (87).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.X",
+  "snippet": "Keys.X",
+  "description": "Represents the keyboard's 'X' key (88).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Y",
+  "snippet": "Keys.Y",
+  "description": "Represents the keyboard's 'Y' key (89).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Z",
+  "snippet": "Keys.Z",
+  "description": "Represents the keyboard's 'Z' key (90).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.NumPad0",
+  "snippet": "Keys.NumPad0",
+  "description": "Represents the keyboard's '0' number pad key (96).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.NumPad1",
+  "snippet": "Keys.NumPad1",
+  "description": "Represents the keyboard's '1' number pad key (97).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.NumPad2",
+  "snippet": "Keys.NumPad2",
+  "description": "Represents the keyboard's '2' number pad key (98).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.NumPad3",
+  "snippet": "Keys.NumPad3",
+  "description": "Represents the keyboard's '3' number pad key (99).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.NumPad4",
+  "snippet": "Keys.NumPad4",
+  "description": "Represents the keyboard's '4' number pad key (100).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.NumPad5",
+  "snippet": "Keys.NumPad5",
+  "description": "Represents the keyboard's '5' number pad key (101).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.NumPad6",
+  "snippet": "Keys.NumPad6",
+  "description": "Represents the keyboard's '6' number pad key (102).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.NumPad7",
+  "snippet": "Keys.NumPad7",
+  "description": "Represents the keyboard's '7' number pad key (103).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.NumPad8",
+  "snippet": "Keys.NumPad8",
+  "description": "Represents the keyboard's '8' number pad key (104).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.NumPad9",
+  "snippet": "Keys.NumPad9",
+  "description": "Represents the keyboard's '9' number pad key (105).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Multiply",
+  "snippet": "Keys.Multiply",
+  "description": "Represents the keyboard's 'Multiply' key (106).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Add",
+  "snippet": "Keys.Add",
+  "description": "Represents the keyboard's 'Add' key (107).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Separator",
+  "snippet": "Keys.Separator",
+  "description": "Represents the keyboard's 'Separator' key (108).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Subtract",
+  "snippet": "Keys.Subtract",
+  "description": "Represents the keyboard's 'Subtract' key (109).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Decimal",
+  "snippet": "Keys.Decimal",
+  "description": "Represents the keyboard's 'Decimal' key (110).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Divide",
+  "snippet": "Keys.Divide",
+  "description": "Represents the keyboard's 'Divide' key (111).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.LeftShift",
+  "snippet": "Keys.LeftShift",
+  "description": "Represents the keyboard's 'Left Shift' key (160).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.RightShift",
+  "snippet": "Keys.RightShift",
+  "description": "Represents the keyboard's 'Right Shift' key (161).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.LeftControl",
+  "snippet": "Keys.LeftControl",
+  "description": "Represents the keyboard's 'Left Control' key (162).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.RightControl",
+  "snippet": "Keys.RightControl",
+  "description": "Represents the keyboard's 'Right Control' key (163).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.LeftAlt",
+  "snippet": "Keys.LeftAlt",
+  "description": "Represents the keyboard's 'Left Alt' key (164).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.RightAlt",
+  "snippet": "Keys.RightAlt",
+  "description": "Represents the keyboard's 'Right Alt' key (165).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Semicolon",
+  "snippet": "Keys.Semicolon",
+  "description": "Represents the keyboard's 'Semicolon' key (186).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Plus",
+  "snippet": "Keys.Plus",
+  "description": "Represents the keyboard's 'Plus' key (187).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Comma",
+  "snippet": "Keys.Comma",
+  "description": "Represents the keyboard's 'Comma' key (188).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Minus",
+  "snippet": "Keys.Minus",
+  "description": "Represents the keyboard's 'Minus' key (189).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Period",
+  "snippet": "Keys.Period",
+  "description": "Represents the keyboard's 'Period' key (190).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Question",
+  "snippet": "Keys.Question",
+  "description": "Represents the keyboard's 'Question' key (191).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Tilde",
+  "snippet": "Keys.Tilde",
+  "description": "Represents the keyboard's 'Tilde' key (192).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.OpenBrackets",
+  "snippet": "Keys.OpenBrackets",
+  "description": "Represents the keyboard's 'OpenBrackets' key (219).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Pipe",
+  "snippet": "Keys.Pipe",
+  "description": "Represents the keyboard's 'Pipe' key (220).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.CloseBrackets",
+  "snippet": "Keys.CloseBrackets",
+  "description": "Represents the keyboard's 'CloseBrackets' key (221).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Quotes",
+  "snippet": "Keys.Quotes",
+  "description": "Represents the keyboard's 'Quotes' key (222).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.Backslash",
+  "snippet": "Keys.Backslash",
+  "description": "Represents the keyboard's 'Backslash' key (226).",
+  "type": "variable",
+  "rightLabel": "PV8 Key"
+},
+{
+    "displayText": "Keys.OemClear",
+  "snippet": "Keys.OemClear",
+  "description": "Represents the keyboard's 'Clear' key (254).",
+  "type": "method",
+  "rightLabel": "PV8 Key"
 }
+
 ]
