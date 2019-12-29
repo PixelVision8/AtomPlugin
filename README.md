@@ -2,7 +2,7 @@
 
 PV8's core philosophy is to teach retro game development with streamlined workflows. It enables designing games around limited resolutions, colors, sprites, sound and memory. It is ideal for game jams, prototyping ideas or having fun.
 
-Pixel Vision 8 is also a platform that standardizes 8-bit fantasy console limitations. Developers can customize these restrictions to match actual legacy hardware or create something new. The challenge of working within these confines forces creativity and limits scope. Pixel Vision 8 creations are expressions of ingenuity that rise above their limitations.
+While Pixel Vision OS’s built-in text editor is good for simple coding, the ideal way to make PV8 games is with an external code editor. Atom ([https://atom.io](https://atom.io)) is a great, lightweight code editor that works perfectly with Pixel Vision 8 external tool workflow. Before you open your game’s Lua files in Atom, you will want to add a few packages.
 
 ## Plugin Features
 
@@ -13,27 +13,31 @@ This plugin was designed to add autocomplete and other features for using the [A
 * Code templates (coming soon)
 
 ## Getting Started
-Before you open your PV8 game’s Lua files in Atom, you will want to add a few packages. The first one is Pixel Vision 8’s API autocomplete package. You do this by going to Atom’s settings, then select the install tab. From there type in `pixel-vision-8` and search for the plugin.
+The first package to install is Pixel Vision 8’s own API autocomplete. You do this by going to Atom’s settings, then select the install tab. From there type in `pixel-vision-8` and search for the package.
 
 <p style="text-align:center"><img src="http://tutorials.pixelvision8.com/wp-content/uploads/2019/12/UsingAtom_image_0.png" /></p>
 
-Once installed, you will be able to get PV8 API code completion in any `.lua` file you work on in the editor.
+Once installed, you will be able to get PV8 code completion in any `.lua` file you work on in the editor.
 
 <p style="text-align:center"><img src="http://tutorials.pixelvision8.com/wp-content/uploads/2019/12/UsingAtom_image_1.png" /></p>
 
-Just start typing out the first 3 letters of a PV8 API and the autocomplete drop-down will give you the options to choose from. Each listing has a detailed description of what the API does, as well as an autocomplete template allowing you to tab through each of the arguments once you have hit returned and added the code snippet to your project.
+Just start typing out the first few letters of an API and the autocomplete drop-down will give you the options to choose from. Each listing has a detailed description of what the API does and offers an autocomplete template allowing you to tab through each of the parameters once you add the code snippet to your project.
 
-Another advantage of installing the PV8 Atom plugin is that you can keep it up to date with each release. This allows you to have the latest API autocomplete definitions without having to dig through the documentation to see the latest changes.
+Another advantage of installing the PV8 Atom package is that you can keep it up to date with each release. This allows you to have the latest API autocomplete definitions without having to dig through the documentation to see the latest changes.
 
-You will also want to install a good Lua plugin if you have not done so already. I use `language-lua` by FireZenk.
+You will also want to install a good Lua package if you have not done so already. I use `language-lua` by FireZenk.
 
 <p style="text-align:center"><img src="http://tutorials.pixelvision8.com/wp-content/uploads/2019/12/UsingAtom_image_2.png" /></p>
 
-There are lots of other great Atom plugins that can help you work with Pixel Vision 8’s other data files.
+Once you have everything set up, you can open any PV8 disk or project folder with Atom. You’ll see the entire file structure of the project and can begin making changes to any of the Lua or JSON files.
+
+![image alt text](http://tutorials.pixelvision8.com/wp-content/uploads/2019/12/UsingAtom_image_3.png)
+
+When you make changes to your code in Atom, simply press `CTRL + 4` in Pixel Vision 8 to reload the game.
 
 ## Credits
 
-Pixel Vision 8 was created by Jesse Freeman ([@jessefreeman](http://twitter.com/jessefreeman)) in collaboration with Pedro Medeiros ([@saint11](http://twitter.com/saint11)) for art and Christer Kaitila ([@McFunkypants](http://twitter.com/McFunkypants)) for music. With additional coding contributions by Shawn Rakowski ([@shwany](http://twitter.com/shwany)).
+Pixel Vision 8 was created by Jesse Freeman ([@jessefreeman](http://twitter.com/jessefreeman)) in collaboration with Christina-Antoinette Neofotistou ([@CastPixel](http://twitter.com/CastPixel)), Pedro Medeiros ([@saint11](http://twitter.com/saint11)) for art and Christer Kaitila ([@McFunkypants](http://twitter.com/McFunkypants)) for music. With additional coding contributions by Shawn Rakowski ([@shwany](http://twitter.com/shwany)).
 
 ## License
 
