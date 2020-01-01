@@ -14,9 +14,9 @@
     "rightLabel": "PV8 File IO"
 },
 {
-    "displayText": "BackgroundColors(id)",
-    "snippet": "BackgroundColors( ${1:id} )$2",
-    "description": "The background color is used to fill the screen when clearing the display. You can use this method to read or update the background color at runtime. When calling BackgroundColors() without an argument, it returns the current background color as an int. You can pass in an optional int to update the background color by calling BackgroundColors(0), where 0 is any valid system color ID.",
+    "displayText": "BackgroundColor(id)",
+    "snippet": "BackgroundColor( ${1:id} )$2",
+    "description": "The background color is used to fill the screen when clearing the display. You can use this method to read or update the background color at runtime. When calling BackgroundColor() without an argument, it returns the current background color as an int. You can pass in an optional int to update the background color by calling BackgroundColor(0), where 0 is any valid system color ID.",
     "type": "method",
     "rightLabel": "PV8 Colors"
 },
@@ -63,9 +63,9 @@
     "rightLabel": "PV8 Rendering"
 },
 {
-    "displayText": "Colors(id, value)",
-    "snippet": "Colors( ${1:id}, ${2:value} )$3",
-    "description": "The Colors() API allows you to read and update color values in the ColorsChip. This API has two modes that require a color ID to work. By calling the method with just an ID, like Colors(0), it returns a HEX string for that color. If you supply an additional HEX string value, like Colors(0, \"#FFFF00\"), you can change the color with the given ID.",
+    "displayText": "Color(id, value)",
+    "snippet": "Color( ${1:id}, ${2:value} )$3",
+    "description": "The Color() API allows you to read and update color values in the ColorChip. This API has two modes that require a color ID to work. By calling the method with just an ID, like Color(0), it returns a HEX string for that color. If you supply an additional HEX string value, like Color(0, \"#FFFF00\"), you can change the color with the given ID.",
     "type": "method",
     "rightLabel": "PV8 Colors"
 },
@@ -252,8 +252,15 @@
     "rightLabel": "PV8 Sounds"
 },
 {
-    "displayText": "ReadMetaData(key, defaultValue)",
-    "snippet": "ReadMetaData( ${1:key}, ${2:defaultValue} )$3",
+    "displayText": "WriteMetadata(key, value)",
+    "snippet": "WriteMetadata( ${1:key}, ${2:value} )$3",
+    "description": "The WriteMetadata() API allows you to modify or add new values to the game’s metadata which can be read when the game reloads. Values written to the Metadata will be erased when the game closes and a new game is loaded in its place.",
+    "type": "method",
+    "rightLabel": "PV8 File IO"
+},
+{
+    "displayText": "ReadMetadata(key, defaultValue)",
+    "snippet": "ReadMetadata( ${1:key}, ${2:defaultValue} )$3",
     "description": "The ReadMetadata() API allows you to read the metadata that is passed into the game when it loads. This is used by the Pixel Vision 8 Runner to pass data between load sessions.",
     "type": "method",
     "rightLabel": "PV8 File IO"
